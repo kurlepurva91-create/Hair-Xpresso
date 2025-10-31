@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hair Xpresso - Our Services</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fff5f5;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      color: #e63946;
+      margin-top: 30px;
+    }
+
+    .services {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 20px;
+      gap: 20px;
+    }
+
+    .service-card {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 250px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .service-card:hover {
+      transform: scale(1.05);
+    }
+
+    .service-card h3 {
+      color: #e63946;
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      color: #444;
+      font-size: 14px;
+    }
+
+    /* Popup Styling */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      width: 350px;
+      text-align: left;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .close-btn {
+      float: right;
+      background: #e63946;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .appointment-btn {
+      background: #457b9d;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 15px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .appointment-btn:hover {
+      background: #1d3557;
+    }
+
+    footer {
+      background: black;
+      color: white;
+      padding: 10px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Our Services</h1>
+
+  <div class="services">
+    <div class="service-card" ondblclick="showPopup('haircut')">
+      <h3>Haircut & Styling</h3>
+      <p>Trendy, classic, or customized styles by expert stylists.</p>
+    </div>
+
+    <div class="service-card" ondblclick="showPopup('coloring')">
+      <h3>Hair Coloring</h3>
+      <p>Vibrant shades and premium colors to suit your style.</p>
+    </div>
+
+    <div class="service-card" ondblclick="showPopup('spa')">
+      <h3>Hair Spa & Treatment</h3>
+      <p>Relaxing and nourishing hair spa for shine and strength.</p>
+    </div>
+
+    <div class="service-card" ondblclick="showPopup('bridal')">
+      <h3>Bridal & Party Styling</h3>
+      <p>Elegant bridal looks and occasion-ready makeup & hairstyles.</p>
+    </div>
+  </div>
+
+  <!-- Popup Box -->
+  <div class="popup" id="popupBox">
+    <div class="popup-content" id="popupContent">
+      <button class="close-btn" onclick="closePopup()">X</button>
+      <div id="popupDetails"></div>
+    </div>
+  </div>
+
+  <footer>© 2025 Hair Xpresso | All Rights Reserved</footer>
+
+  <script>
+    const popup = document.getElementById("popupBox");
+    const popupDetails = document.getElementById("popupDetails");
+
+    function showPopup(service) {
+      let content = '';
+
+      if (service === 'haircut') {
+        content = `
+          <h2>Haircut & Styling</h2>
+          <p><strong>Price:</strong> ₹500 - ₹1000</p>
+          <p><strong>Products Used:</strong> L'Oréal, Matrix, Schwarzkopf</p>
+          <p><strong>Time Required:</strong> 45 minutes</p>
+          <button class="appointment-btn" onclick="bookAppointment('Haircut & Styling')">Book Appointment</button>
+        `;
+      } 
+      else if (service === 'coloring') {
+        content = `
+          <h2>Hair Coloring</h2>
+          <p><strong>Price:</strong> ₹1500 - ₹2500</p>
+          <p><strong>Products Used:</strong> Wella Professionals, L'Oréal Majirel</p>
+          <p><strong>Time Required:</strong> 1.5 hours</p>
+          <button class="appointment-btn" onclick="bookAppointment('Hair Coloring')">Book Appointment</button>
+        `;
+      } 
+      else if (service === 'spa') {
+        content = `
+          <h2>Hair Spa & Treatment</h2>
+          <p><strong>Price:</strong> ₹800 - ₹1200</p>
+          <p><strong>Products Used:</strong> L'Oréal Hair Spa Cream, Moroccanoil</p>
+          <p><strong>Time Required:</strong> 1 hour</p>
+          <button class="appointment-btn" onclick="bookAppointment('Hair Spa & Treatment')">Book Appointment</button>
+        `;
+      } 
+      else if (service === 'bridal') {
+        content = `
+          <h2>Bridal & Party Styling</h2>
+          <p><strong>Price:</strong> ₹2000 - ₹5000</p>
+          <p><strong>Products Used:</strong> MAC, Kryolan, L'Oréal</p>
+          <p><strong>Time Required:</strong> 2 hours</p>
+          <button class="appointment-btn" onclick="bookAppointment('Bridal & Party Styling')">Book Appointment</button>
+        `;
+      }
+
+      popupDetails.innerHTML = content;
+      popup.style.display = "flex";
+    }
+
+    function closePopup() {
+      popup.style.display = "none";
+    }
+
+    function bookAppointment(serviceName) {
+      const letter = `
+        <h3>Appointment Confirmation</h3>
+        <p>Thank you for choosing <strong>Hair Xpresso</strong>!</p>
+        <p>Your appointment for <strong>${serviceName}</strong> has been booked successfully.</p>
+        <p>We look forward to serving you soon 💇‍♀💅</p>
+      `;
+      popupDetails.innerHTML = letter;
+    }
+  </script>
+</body>
+</html>
